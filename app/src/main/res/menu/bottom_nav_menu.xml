@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="HOME" />
+
+    <item
+        android:id="@+id/nav_donors"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="DONORS" />
+
+    <item
+        android:id="@+id/nav_urgent"
+        android:icon="@android:drawable/stat_notify_error"
+        android:title="URGENT" />
+
+    <item
+        android:id="@+id/nav_pharma"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="PHARMA" />
+
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@android:drawable/ic_menu_send"
+        android:title="AI CHAT" />
+
+</menu>

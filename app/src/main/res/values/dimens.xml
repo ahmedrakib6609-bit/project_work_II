@@ -1,0 +1,15 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- New dimensions for UI updates -->
+    <dimen name="logo_size_small">60dp</dimen>
+    <dimen name="logo_size_medium">80dp</dimen>
+    <dimen name="button_height_standard">56dp</dimen>
+    <dimen name="button_padding_horizontal">24dp</dimen>
+    <dimen name="social_icon_size">56dp</dimen>
+    <dimen name="blood_group_button_height">70dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="elevation_standard">4dp</dimen>
+</resources>

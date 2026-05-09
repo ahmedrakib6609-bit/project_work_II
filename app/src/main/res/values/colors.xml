@@ -1,0 +1,36 @@
+<resources>
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="primaryColor">#D32F2F</color> <!-- Red color for blood bank -->
+    <color name="primaryLight">#FFCDD2</color>
+    <color name="primaryDark">#B71C1C</color>
+    <color name="accent">#4CAF50</color>
+    <color name="background">#F5F5F5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="error">#FF5252</color>
+    <color name="textPrimary">#212121</color>
+    <color name="textSecondary">#757575</color>
+    <color name="success">#4CAF50</color>
+    <color name="bloodRed">#D32F2F</color>
+    <color name="bloodRedLight">#FFEBEE</color>
+    <color name="bloodRedDark">#C62828</color>
+    <color name="iconBackground">#F5F5F5</color>
+    <color name="googleRed">#DB4437</color>
+    <color name="facebookBlue">#4267B2</color>
+    <color name="telegramBlue">#0088CC</color>
+    <color name="borderColor">#E0E0E0</color>
+    <color name="input_text">#212121</color>
+    <color name="button_text">#FFFFFF</color>
+    <color name="blood_group_default">#D32F2F</color>
+    <color name="blood_group_selected">#B71C1C</color>
+    <color name="gradient_start">#D32F2F</color>
+    <color name="gradient_end">#B71C1C</color>
+
+    <color name="teal_700">#FF018786</color>
+
+    <color name="lightGray">#ECF0F1</color>
+</resources>

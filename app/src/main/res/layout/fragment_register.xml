@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Clean Header without Background Box -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="24dp">
+
+            <!-- Blood Drop Logo - Smaller Size -->
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_blood_drop"
+                android:contentDescription="Blood Bank Logo"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Join Our Community"
+                android:textColor="@color/textPrimary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Become a life saver today"
+                android:textColor="@color/textSecondary"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Form Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Full Name -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.BloodBankBD.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:hintTextColor="@color/primaryColor"
+                    app:boxStrokeColor="@color/primaryColor"
+                    app:startIconDrawable="@drawable/ic_person"
+                    app:startIconTint="@color/primaryColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:hint="Full Name"
+                        android:textColor="@color/input_text"
+                        android:textSize="16sp"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Mobile Number -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.BloodBankBD.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:hintTextColor="@color/primaryColor"
+                    app:boxStrokeColor="@color/primaryColor"
+                    app:startIconDrawable="@drawable/ic_phone"
+                    app:startIconTint="@color/primaryColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:hint="Mobile Number"
+                        android:textColor="@color/input_text"
+                        android:textSize="16sp"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Email -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.BloodBankBD.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:hintTextColor="@color/primaryColor"
+                    app:boxStrokeColor="@color/primaryColor"
+                    app:startIconDrawable="@drawable/ic_email_filled"
+                    app:startIconTint="@color/primaryColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:hint="Email Address"
+                        android:textColor="@color/input_text"
+                        android:textSize="16sp"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Password -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.BloodBankBD.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:hintTextColor="@color/primaryColor"
+                    app:boxStrokeColor="@color/primaryColor"
+                    app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/ic_lock_filled"
+                    app:startIconTint="@color/primaryColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:hint="Password"
+                        android:textColor="@color/input_text"
+                        android:textSize="16sp"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Blood Group Selection -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Blood Group"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Blood Group Grid - Fixed Text Visibility -->
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:rowCount="2"
+                    android:alignmentMode="alignBounds"
+                    android:columnOrderPreserved="false"
+                    android:padding="2dp">
+
+                    <!-- Row 1 - Larger buttons for better text visibility -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAPositive"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2dp"
+                        android:text="A+"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/blood_group_default"
+                        app:cornerRadius="10dp"
+                        android:elevation="2dp"
+                        android:padding="4dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnANegative"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2dp"
+                        android:text="A-"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/blood_group_default"
+                        app:cornerRadius="10dp"
+                        android:elevation="2dp"
+                        android:padding="4dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBPositive"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2dp"
+                        android:text="B+"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/blood_group_default"
+                        app:cornerRadius="10dp"
+                        android:elevation="2dp"
+                        android:padding="4dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBNegative"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2dp"
+                        android:text="B-"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/blood_group_default"
+                        app:cornerRadius="10dp"
+                        android:elevation="2dp"
+                        android:padding="4dp" />
+
+                    <!-- Row 2 -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOPositive"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2dp"
+                        android:text="O+"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/blood_group_default"
+                        app:cornerRadius="10dp"
+                        android:elevation="2dp"
+                        android:padding="4dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnONegative"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2dp"
+                        android:text="O-"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/blood_group_default"
+                        app:cornerRadius="10dp"
+                        android:elevation="2dp"
+                        android:padding="4dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnABPositive"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2dp"
+                        android:text="AB+"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/blood_group_default"
+                        app:cornerRadius="10dp"
+                        android:elevation="2dp"
+                        android:padding="4dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnABNegative"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2dp"
+                        android:text="AB-"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/blood_group_default"
+                        app:cornerRadius="10dp"
+                        android:elevation="2dp"
+                        android:padding="4dp" />
+
+                </GridLayout>
+
+                <!-- Blood Group Info -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select your blood group to help match with patients in need"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center_horizontal" />
+
+                <!-- Create Account Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCreateAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:text="CREATE ACCOUNT"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/primaryColor"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_add_user"
+                    app:iconGravity="start"
+                    app:iconPadding="8dp"
+                    android:layout_marginTop="24dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:elevation="4dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Already have account -->
+        <TextView
+            android:id="@+id/tvAlreadyMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? Sign In"
+            android:textColor="@color/primaryColor"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp" />
+    </LinearLayout>
+</ScrollView>
