@@ -19,11 +19,12 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_new);
 
         try {
-            // Initialize profile button
-            ImageView btnProfile = findViewById(R.id.btnProfile);
-            if (btnProfile != null) {
-                btnProfile.setOnClickListener(v -> {
-                    Toast.makeText(this, "Profile Menu", Toast.LENGTH_SHORT).show();
+            // ✅ Profile Icon - এখন ProfileActivity এ নিয়ে যাবে
+            ImageView ivProfile = findViewById(R.id.ivProfile);
+            if (ivProfile != null) {
+                ivProfile.setOnClickListener(v -> {
+                    Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                    startActivity(intent);
                 });
             }
 
