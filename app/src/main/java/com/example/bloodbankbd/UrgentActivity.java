@@ -1,31 +1,24 @@
 package com.example.bloodbankbd;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.net.Uri;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +27,11 @@ public class UrgentActivity extends AppCompatActivity {
     private RecyclerView urgentRequestsRecyclerView;
     private UrgentRequestAdapter adapter;
     private List<UrgentRequest> requestList;
-    private View fabAddRequest;
     private ViewGroup emptyStateView;
+    private TabLayout tabLayout;
+    private LinearLayout sosContainer, ambulanceContainer, addRequestContainer;
+    private MaterialButton btnSOS, btnAmbulance, btnAddRequest;
+    private TextView tvRequestCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +51,20 @@ public class UrgentActivity extends AppCompatActivity {
                 tvTitle.setText("Urgent Blood Requests");
             }
 
-            // Setup RecyclerView
+            // Initialize TabLayout and Containers
+            tabLayout = findViewById(R.id.tabLayout);
+            sosContainer = findViewById(R.id.sosContainer);
+            ambulanceContainer = findViewById(R.id.ambulanceContainer);
+            addRequestContainer = findViewById(R.id.addRequestContainer);
+
+            // Setup Tab Layout
+            setupTabLayout();
+
+            // Setup Add Request Tab
             urgentRequestsRecyclerView = findViewById(R.id.urgentRequestsRecyclerView);
             emptyStateView = findViewById(R.id.emptyStateView);
+            tvRequestCount = findViewById(R.id.tvRequestCount);
+            btnAddRequest = findViewById(R.id.btnAddRequest);
 
             // Initialize request list with sample data
             requestList = new ArrayList<>();
@@ -71,10 +78,28 @@ public class UrgentActivity extends AppCompatActivity {
             // Check if list is empty
             updateEmptyState();
 
-            // FAB for adding new request
-            fabAddRequest = findViewById(R.id.fabAddRequest);
-            if (fabAddRequest != null) {
-                fabAddRequest.setOnClickListener(v -> showAddRequestBottomSheet());
+            // নরমাল Add Request Button
+            if (btnAddRequest != null) {
+                btnAddRequest.setOnClickListener(v -> showAddRequestBottomSheet());
+            }
+
+            // Setup SOS Tab
+            btnSOS = findViewById(R.id.btnSOS);
+            if (btnSOS != null) {
+                btnSOS.setOnClickListener(v -> {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:999"));
+                    startActivity(intent);
+                    Toast.makeText(this, "Emergency SOS - Calling 999", Toast.LENGTH_SHORT).show();
+                });
+            }
+
+            // Setup Ambulance Tab
+            btnAmbulance = findViewById(R.id.btnAmbulance);
+            if (btnAmbulance != null) {
+                btnAmbulance.setOnClickListener(v -> {
+                    showAmbulanceDialog();
+                });
             }
 
             // Setup bottom navigation
@@ -84,6 +109,66 @@ public class UrgentActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void setupTabLayout() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                sosContainer.setVisibility(View.GONE);
+                ambulanceContainer.setVisibility(View.GONE);
+                addRequestContainer.setVisibility(View.GONE);
+
+                if (position == 0) {
+                    addRequestContainer.setVisibility(View.VISIBLE);
+                } else if (position == 1) {
+                    sosContainer.setVisibility(View.VISIBLE);
+                } else {
+                    ambulanceContainer.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+    }
+
+    private void showAmbulanceDialog() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("🚑 Ambulance Services");
+        builder.setMessage("Select your location to call an ambulance:");
+
+        final String[][] ambulanceNumbers = {
+                {"🩸 Central Ambulance (24/7)", "999"},
+                {"🩸 Dhaka - Central Ambulance", "01777777777"},
+                {"🩸 Chittagong - Red Crescent", "01812345678"},
+                {"🩸 Khulna - General Ambulance", "01912345678"},
+                {"🩸 Rajshahi - Emergency Service", "01512345678"},
+                {"🩸 Sylhet - Life Saver Ambulance", "01612345678"},
+                {"🩸 Barisal - Ambulance Service", "01787654321"},
+                {"🩸 Rangpur - Emergency Ambulance", "01987654321"}
+        };
+
+        String[] options = new String[ambulanceNumbers.length];
+        for (int i = 0; i < ambulanceNumbers.length; i++) {
+            options[i] = ambulanceNumbers[i][0];
+        }
+
+        builder.setItems(options, (dialog, which) -> {
+            String phoneNumber = ambulanceNumbers[which][1];
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phoneNumber));
+            startActivity(intent);
+            Toast.makeText(this, "Calling " + ambulanceNumbers[which][0], Toast.LENGTH_SHORT).show();
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.show();
     }
 
     private void loadSampleRequests() {
@@ -132,9 +217,11 @@ public class UrgentActivity extends AppCompatActivity {
         if (requestList.isEmpty()) {
             urgentRequestsRecyclerView.setVisibility(View.GONE);
             emptyStateView.setVisibility(View.VISIBLE);
+            if (tvRequestCount != null) tvRequestCount.setText("0 requests");
         } else {
             urgentRequestsRecyclerView.setVisibility(View.VISIBLE);
             emptyStateView.setVisibility(View.GONE);
+            if (tvRequestCount != null) tvRequestCount.setText(requestList.size() + " requests");
         }
     }
 
@@ -143,7 +230,6 @@ public class UrgentActivity extends AppCompatActivity {
         View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_add_request, null);
         bottomSheetDialog.setContentView(bottomSheetView);
 
-        // Initialize views in bottom sheet
         TextInputEditText etHospitalName = bottomSheetView.findViewById(R.id.etHospitalName);
         TextInputEditText etLocation = bottomSheetView.findViewById(R.id.etLocation);
         ChipGroup chipGroupBloodGroup = bottomSheetView.findViewById(R.id.chipGroupBloodGroup);
@@ -153,10 +239,8 @@ public class UrgentActivity extends AppCompatActivity {
         MaterialButton btnSubmitRequest = bottomSheetView.findViewById(R.id.btnSubmitRequest);
         MaterialButton btnCancel = bottomSheetView.findViewById(R.id.btnCancel);
 
-        // Variable to store selected blood group
         final String[] selectedBloodGroup = {"A+"};
 
-        // Setup chip group listener
         chipGroupBloodGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
             if (checkedIds.size() > 0) {
                 int checkedId = checkedIds.get(0);
@@ -194,7 +278,6 @@ public class UrgentActivity extends AppCompatActivity {
                 return;
             }
 
-            // Add new request to list
             UrgentRequest newRequest = new UrgentRequest(
                     hospitalName,
                     location,
@@ -205,7 +288,7 @@ public class UrgentActivity extends AppCompatActivity {
                     true
             );
 
-            requestList.add(0, newRequest); // Add at the beginning
+            requestList.add(0, newRequest);
             adapter.notifyItemInserted(0);
             urgentRequestsRecyclerView.scrollToPosition(0);
             updateEmptyState();
@@ -215,7 +298,6 @@ public class UrgentActivity extends AppCompatActivity {
         });
 
         btnCancel.setOnClickListener(v -> bottomSheetDialog.dismiss());
-
         bottomSheetDialog.show();
     }
 
@@ -228,87 +310,38 @@ public class UrgentActivity extends AppCompatActivity {
 
         if (navHome != null) {
             navHome.setOnClickListener(v -> {
-                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(UrgentActivity.this, HomeActivity.class));
+                Intent intent = new Intent(UrgentActivity.this, HomeActivity.class);
+                startActivity(intent);
                 finish();
-                highlightNavItem(v);
             });
         }
 
         if (navDonors != null) {
             navDonors.setOnClickListener(v -> {
-                Toast.makeText(this, "Donors", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(UrgentActivity.this, DonorsActivity.class));
+                Intent intent = new Intent(UrgentActivity.this, DonorsActivity.class);
+                startActivity(intent);
                 finish();
-                highlightNavItem(v);
             });
         }
 
         if (navUrgent != null) {
             navUrgent.setOnClickListener(v -> {
                 Toast.makeText(this, "Already on Urgent page", Toast.LENGTH_SHORT).show();
-                highlightNavItem(v);
             });
         }
 
         if (navPharma != null) {
             navPharma.setOnClickListener(v -> {
-                Toast.makeText(this, "Pharmacy", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(UrgentActivity.this, PharmaActivity.class));
+                Intent intent = new Intent(UrgentActivity.this, PharmaActivity.class);
+                startActivity(intent);
                 finish();
-                highlightNavItem(v);
             });
         }
 
         if (navChat != null) {
             navChat.setOnClickListener(v -> {
-                Toast.makeText(this, "AI Chat", Toast.LENGTH_SHORT).show();
-                highlightNavItem(v);
+                Toast.makeText(this, "AI Chat - Coming Soon", Toast.LENGTH_SHORT).show();
             });
-        }
-
-        // Initially highlight urgent
-        if (navUrgent != null) {
-            highlightNavItem(navUrgent);
-        }
-    }
-
-    private void highlightNavItem(View selectedItem) {
-        View[] navItems = {
-                findViewById(R.id.nav_home),
-                findViewById(R.id.nav_donors),
-                findViewById(R.id.nav_urgent),
-                findViewById(R.id.nav_pharma),
-                findViewById(R.id.nav_chat)
-        };
-
-        // Reset all items
-        for (View navItem : navItems) {
-            if (navItem != null && navItem instanceof ViewGroup) {
-                ViewGroup navItemGroup = (ViewGroup) navItem;
-
-                // First child should be TextView (emoji)
-                if (navItemGroup.getChildCount() > 1) {
-                    View textView = navItemGroup.getChildAt(1);
-                    if (textView instanceof TextView) {
-                        TextView text = (TextView) textView;
-                        text.setTextColor(getResources().getColor(R.color.textSecondary));
-                    }
-                }
-            }
-        }
-
-        // Highlight selected item
-        if (selectedItem != null && selectedItem instanceof ViewGroup) {
-            ViewGroup selectedItemGroup = (ViewGroup) selectedItem;
-
-            if (selectedItemGroup.getChildCount() > 1) {
-                View textView = selectedItemGroup.getChildAt(1);
-                if (textView instanceof TextView) {
-                    TextView text = (TextView) textView;
-                    text.setTextColor(getResources().getColor(R.color.primaryColor));
-                }
-            }
         }
     }
 
@@ -359,28 +392,24 @@ public class UrgentActivity extends AppCompatActivity {
             holder.tvDescription.setText(request.description);
             holder.tvTimeAgo.setText(request.timeAgo);
 
-            // Set verified badge visibility
             if (request.isVerified) {
                 holder.verifiedBadge.setVisibility(View.VISIBLE);
             } else {
                 holder.verifiedBadge.setVisibility(View.GONE);
             }
 
-            // Call button click
             holder.btnCall.setOnClickListener(v -> {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + request.contactNumber));
                 startActivity(intent);
             });
 
-            // SMS button click
             holder.btnSms.setOnClickListener(v -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("sms:" + request.contactNumber));
                 startActivity(intent);
             });
 
-            // Share button click
             holder.btnShare.setOnClickListener(v -> {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
