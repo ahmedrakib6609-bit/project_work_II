@@ -45,24 +45,57 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <!-- Tab Layout -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:tabIndicatorColor="@color/primaryColor"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="@color/primaryColor"
+        app:tabTextColor="@color/textSecondary">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="➕ Add Request" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🆘 SOS" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🚑 Ambulance" />
+
+    </com.google.android.material.tabs.TabLayout>
+
     <!-- Main Content -->
     <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
+        <!-- Add Request Container -->
         <LinearLayout
+            android:id="@+id/addRequestContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
 
-            <!-- Header with count -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="16dp"
-                android:background="@android:color/white">
+                android:background="@android:color/white"
+                android:layout_marginBottom="8dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -83,16 +116,30 @@
 
             </LinearLayout>
 
-            <!-- RecyclerView for requests -->
+            <!-- ✅ 1. Add Request Button (টেক্সট বড় করা) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddRequest"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="16dp"
+                android:text="ADD NEW REQUEST"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/primaryColor"
+                android:textColor="@android:color/white"
+                app:cornerRadius="28dp"
+                app:icon="@drawable/ic_add"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:iconTint="@android:color/white" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/urgentRequestsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="12dp"
-                android:clipToPadding="false"
-                android:visibility="gone" />
+                android:clipToPadding="false" />
 
-            <!-- Empty State View -->
             <LinearLayout
                 android:id="@+id/emptyStateView"
                 android:layout_width="match_parent"
@@ -100,7 +147,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="32dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="120dp"
@@ -121,7 +168,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tap the + button to add a new request"
+                    android:text="Tap the button above to add a new request"
                     android:textColor="@color/textSecondary"
                     android:textSize="14sp"
                     android:gravity="center" />
@@ -130,16 +177,111 @@
 
         </LinearLayout>
 
-        <!-- FAB for adding new request -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddRequest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="@color/primaryColor"
-            app:tint="@android:color/white" />
+        <!-- SOS Container -->
+        <LinearLayout
+            android:id="@+id/sosContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:padding="20dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_sos"
+                android:tint="#FF0000"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EMERGENCY SOS"
+                android:textColor="#FF0000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap the button below for immediate emergency help"
+                android:textColor="@color/textSecondary"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginBottom="32dp" />
+
+            <!-- ✅ 2. SOS Button (টেক্সট বড় করা) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSOS"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:text="CALL 999 NOW"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:backgroundTint="#FF0000"
+                android:textColor="@android:color/white"
+                app:cornerRadius="32dp"
+                app:icon="@drawable/ic_sos"
+                app:iconGravity="start"
+                app:iconPadding="16dp"
+                app:iconTint="@android:color/white" />
+
+        </LinearLayout>
+
+        <!-- Ambulance Container -->
+        <LinearLayout
+            android:id="@+id/ambulanceContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:padding="20dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_ambulance"
+                android:tint="#2196F3"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AMBULANCE SERVICE"
+                android:textColor="#2196F3"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap the button below to call an ambulance"
+                android:textColor="@color/textSecondary"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginBottom="32dp" />
+
+            <!-- ✅ 3. Ambulance Button (টেক্সট বড় করা) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAmbulance"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:text="CALL AMBULANCE"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:backgroundTint="#2196F3"
+                android:textColor="@android:color/white"
+                app:cornerRadius="32dp"
+                app:icon="@drawable/ic_ambulance"
+                app:iconGravity="start"
+                app:iconPadding="16dp"
+                app:iconTint="@android:color/white" />
+
+        </LinearLayout>
 
     </FrameLayout>
 
@@ -159,7 +301,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -182,7 +326,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -205,7 +351,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -229,7 +377,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -252,7 +402,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
